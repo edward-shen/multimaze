@@ -1,0 +1,16 @@
+body {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+#maze {
+    line-height: 0;
+    position: relative;
+    white-space: nowrap;
+}
+
+#user, #opponent {
+    position:absolute;
+    top:0;
+    left:0;
+}

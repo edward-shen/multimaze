@@ -1,0 +1,49 @@
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var path = require('path');
+var io = require('socket.io')(http);
+
+app.use(express.static('../client'));
+
+app.get('/', function(req, res){
+    res.sendFile(path.resolve(__dirname + '/../client/client.html'));
+});
+
+io.on('connection', function(socket){
+    // Find and join an unfilled room
+    var roomID = 0;
+    while (typeof io.sockets.adapter.rooms[roomID.toString()] !== 'undefined' && io.sockets.adapter.rooms[roomID.toString()].length >= 2)
+        roomID++;
+    socket.join(roomID.toString());
+    console.log('A user from ' + socket.conn.remoteAddress + ' has connected to room ' + roomID);
+
+    // Seed announcement
+    if (io.sockets.adapter.rooms[roomID.toString()].length == 2) {
+        var seed = Math.random().toString();
+        socket.in(roomID).emit('seed', seed);
+        console.log("announcing seed " + seed + " to room " + roomID);
+    }
+
+    socket.on('seedAck', function(msg) {
+        console.log(msg);
+    })
+
+    // Opponent movement listener
+    socket.on('userMovement', function(msg){
+        // I'm a sneaky person. Validates that only one block was moved at time, or otherwise don't send the data out. This has an unintented but desired effect of the cheater's viewpoint to update sucessfully, but not for the other user.
+        if (Math.abs((msg.x - msg.x1) + (msg.y - msg.y1)) === 1) {
+            socket.broadcast.to(roomID).emit('userMovement', msg);
+        }
+    });
+
+    // Notify disconnect
+    socket.on('disconnect', function(){
+        console.log('A user from ' + socket.conn.remoteAddress + ' has disconnected and left room ' + roomID);
+    });
+
+});
+
+http.listen(3000, function(){
+    console.log('listening on *:3000');
+});
