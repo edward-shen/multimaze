@@ -18,13 +18,6 @@ io.on('connection', function(socket){
     socket.join(roomID.toString());
     console.log('A user from ' + socket.conn.remoteAddress + ' has connected to room ' + roomID);
 
-    // Seed announcement
-    if (io.sockets.adapter.rooms[roomID.toString()].length == 2) {
-        var seed = Math.random().toString();
-        socket.in(roomID).emit('seed', seed);
-        console.log("announcing seed " + seed + " to room " + roomID);
-    }
-
     socket.on('seedAck', function(msg) {
         console.log(msg);
     })
@@ -40,6 +33,22 @@ io.on('connection', function(socket){
     // Notify disconnect
     socket.on('disconnect', function(){
         console.log('A user from ' + socket.conn.remoteAddress + ' has disconnected and left room ' + roomID);
+    });
+
+    // Outputs debug information sent from client
+    socket.on('debug', function(msg) {
+        console.log(msg);
+    });
+
+    // the 'ready' message is sent from the client when it loads.
+    socket.on('ready', function(msg) {
+        console.log(msg);
+        // Seed announcement
+        if (io.sockets.adapter.rooms[roomID.toString()].length == 2) {
+            var seed = Math.random().toString();
+            io.sockets.in(roomID.toString()).emit('seed', seed);
+            console.log("announcing seed " + seed + " to room " + roomID);
+        }
     });
 
 });

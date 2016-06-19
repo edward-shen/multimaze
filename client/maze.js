@@ -119,10 +119,10 @@ function displayMaze() {
        maze.append("<br/>");
     }
 
-    // Displays opponent
+
+    // Draws the user and opponent
     maze.append("<img src=\"opponent.png\" id=\"opponent\" />");
     $("#opponent").css({position:"absolute", top:"16px", left:"16px"});
-
     maze.append("<img src=\"user.png\" id=\"user\" />");
 }
 
@@ -131,10 +131,7 @@ function checkLoc(location) {
     return (typeof playingField[location.y + 1][location.x + 1] !== 'undefined');
 }
 
-function drawUser() {
-    $("#user").css({position:"absolute", top:(curPos.y + 1) * 16, left:(curPos.x + 1) * 16});
-}
-
+// Sets the current location to the location specified in the parameter, and then calls an update to the UI. Also checks if the player has won.
 function moveUser(location) {
     curPos.x = location.x;
     curPos.y = location.y;
@@ -142,13 +139,25 @@ function moveUser(location) {
     checkFinish();
 }
 
+// Draws the user at curPos
+function drawUser() {
+    $("#user").css({position:"absolute", top:(curPos.y + 1) * 16, left:(curPos.x + 1) * 16});
+}
+
+// Updates the opponent's location
 function moveOpponent(msg) {
-    console.log(msg);
     $("#opponent").css({position:"absolute", top:(msg.y + 1) * 16 , left:(msg.x + 1) * 16});
 }
 
+// Checks if the user reaches the target position on the maze
 function checkFinish() {
     if (curPos.x === (xSize - 1) * 2 && curPos.y === (ySize - 1) * 2) {
         console.log("winner!");
     }
+}
+
+// Clear the maze and empty the playing field
+function clearMaze() {
+    $("#maze").empty();
+    playingField = createArray(ySize * 2 + 1, xSize * 2 + 1);
 }
