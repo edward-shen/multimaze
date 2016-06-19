@@ -47,8 +47,8 @@ function attachKeyListener() {
     };
 }
 
+// Opponent movement
 socket.on('userMovement', function(msg){
-    console.log("opponent Moved!");
     moveOpponent(msg);
 });
 

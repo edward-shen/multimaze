@@ -4,7 +4,6 @@ var randomSeed;
 
 // Should be called after everything else is loaded
 socket.on('seed', function(msg) {
-    console.log("recieved seed: " + msg);
     randomSeed = msg;
 
     clearMaze();
