@@ -111,9 +111,9 @@ function displayMaze() {
                 maze.append("<img src=\"goal.png\" />");
             } else {
                 if (typeof playingField[i][j] !== 'undefined')
-                    maze.append("<img src=\"black.png\"/>");
+                    maze.append("<img src=\"path.png\"/>");
                 else
-                    maze.append("<img src=\"grey.png\"/>");
+                    maze.append("<img src=\"wall.png\"/>");
             }
         }
        maze.append("<br/>");

@@ -4,7 +4,7 @@ var http = require('http').Server(app);
 var path = require('path');
 var io = require('socket.io')(http);
 
-app.use(express.static('../client'));
+app.use(express.static(__dirname + '/../client'));
 
 app.get('/', function(req, res){
     console.log("new request!");
@@ -25,10 +25,12 @@ io.on('connection', function(socket){
 
     // Opponent movement listener
     socket.on('userMovement', function(msg){
+        /*
         // I'm a sneaky person. Validates that only one block was moved at time, or otherwise don't send the data out. This has an unintented but desired effect of the cheater's viewpoint to update sucessfully, but not for the other user.
         if (Math.abs((msg.x - msg.x1) + (msg.y - msg.y1)) === 1) {
-            socket.broadcast.to(roomID).emit('userMovement', msg);
         }
+        */
+        socket.broadcast.to(roomID).emit('userMovement', msg);
     });
 
     // Notify disconnect
