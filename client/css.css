@@ -13,10 +13,46 @@ body {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #user, #opponent {
     position:absolute;
     top:0;
     left:0;
+}
+
+.ng-dirty.ng-invalid {
+    border-color: red;
+}
+
+.ng-dirty.ng-valid {
+    border-color: green;
+}
+
+#ui {
+    background-color: white;
+    padding: 20px 20px;
+    border-radius: 8px;
+}
+
+#overlay {
+    z-index:200;
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(51, 51, 51, 0.5);
+	display: -webkit-flex;
+	display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#playing-field {
+    position:relative;
 }

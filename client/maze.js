@@ -105,25 +105,34 @@ function generateMaze() {
 // Writes the maze to the DOM, allowing us to visualize the output. Paths are black while the borders are grey
 function displayMaze() {
     var maze = $("#maze");
+    maze.append("<div id=\"playing-field\">");
+
+    var field = $("#playing-field");
     for (i=0; i < playingField.length; i++) {
-       for (j = 0; j < playingField[i].length; j++) {
+        field.append("<div id=\"row-" + i + "\">");
+        var row = $("#row-" + i);
+        for (j = 0; j < playingField[i].length; j++) {
             if (i === playingField.length - 2 && j === playingField[0].length - 2 && i === j){
-                maze.append("<img src=\"goal.png\" />");
+                row.append("<img src=\"img/goal.png\" />");
             } else {
                 if (typeof playingField[i][j] !== 'undefined')
-                    maze.append("<img src=\"path.png\"/>");
+                    row.append("<img src=\"img/path.png\"/>");
                 else
-                    maze.append("<img src=\"wall.png\"/>");
+                    row.append("<img src=\"img/wall.png\"/>");
             }
         }
-       maze.append("<br/>");
+        row.append("<br/>");
+        field.append("</div>");
     }
+
+    maze.append("</div>");
 
 
     // Draws the user and opponent
-    maze.append("<img src=\"opponent.png\" id=\"opponent\" />");
+    field.append("<img src=\"img/opponent.png\" id=\"opponent\" />");
     $("#opponent").css({position:"absolute", top:"16px", left:"16px"});
-    maze.append("<img src=\"user.png\" id=\"user\" />");
+    field.append("<img src=\"img/user.png\" id=\"user\" />");
+
 }
 
 // Checks if the user can move to the specified position

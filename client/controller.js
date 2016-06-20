@@ -12,9 +12,5 @@ socket.on('seed', function(msg) {
     displayMaze();
     drawUser();
     attachKeyListener();
-    socket.emit('seedAck', 'client has received seed ' + msg);
-});
-
-socket.on('connect', function() {
-    socket.emit('ready', 'client is ready!');
+    socket.emit('debug', 'client has received seed ' + msg);
 });

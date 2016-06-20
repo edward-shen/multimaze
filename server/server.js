@@ -19,17 +19,9 @@ io.on('connection', function(socket){
     socket.join(roomID.toString());
     console.log('A user from ' + socket.conn.remoteAddress + ' has connected to room ' + roomID);
 
-    socket.on('seedAck', function(msg) {
-        console.log(msg);
-    })
-
     // Opponent movement listener
     socket.on('userMovement', function(msg){
-        /*
-        // I'm a sneaky person. Validates that only one block was moved at time, or otherwise don't send the data out. This has an unintented but desired effect of the cheater's viewpoint to update sucessfully, but not for the other user.
-        if (Math.abs((msg.x - msg.x1) + (msg.y - msg.y1)) === 1) {
-        }
-        */
+        // TODO: implement movement verification
         socket.broadcast.to(roomID).emit('userMovement', msg);
     });
 
@@ -40,10 +32,10 @@ io.on('connection', function(socket){
 
     // Outputs debug information sent from client
     socket.on('debug', function(msg) {
-        console.log(msg);
+        console.log("DEBUG: " + msg);
     });
 
-    // the 'ready' message is sent from the client when it loads.
+    // The 'ready' message is sent when the user clicks play
     socket.on('ready', function(msg) {
         console.log(msg);
         // Seed announcement
