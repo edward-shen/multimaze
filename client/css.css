@@ -56,3 +56,33 @@ body {
 #playing-field {
     position:relative;
 }
+
+#diff {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-around;
+}
+
+#button-submit {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-self: center;
+}
+
+.form-button {
+    display: none;
+}
+
+.form-button:checked + label {
+    background-color:grey;
+}
+
+.form-button + label {
+    border: 1px solid;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 2px;
+}

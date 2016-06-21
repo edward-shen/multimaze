@@ -1,4 +1,6 @@
-var socket = io();
+// This file hosts the code that is appliciable to the function of the app itself, rather than a specific module
+
+var socket = io({'sync disconnect on unload': true });
 
 var randomSeed;
 
@@ -12,5 +14,5 @@ socket.on('seed', function(msg) {
     displayMaze();
     drawUser();
     attachKeyListener();
-    socket.emit('debug', 'client has received seed ' + msg);
+    socket.emit('debug', 'CLIENT[?] ACTION: ACKNOWLEDGE=>SEED(' + msg + ')');
 });

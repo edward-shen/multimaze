@@ -24,12 +24,19 @@
             <div id="ui">
                 <h3>Multimaze</h3>
                 <form name="customRoom" ng-submit="customRoom.$valid && roomCtrl.join()" novalidate>
+                    <input type="text" ng-model="roomCtrl.request.username" placeholder="Username" required/>
                     <input type="text" ng-model="roomCtrl.request.id" placeholder="Optional room ID" length-validation/>
-                    <input type="submit" id="buttonID" value="Play" />
                     <br />
-                    <input type="radio" ng-model="roomCtrl.request.diff" value="easy">Easy</input>
-                    <input type="radio" ng-model="roomCtrl.request.diff" value="medium">Medium</input>
-                    <input type="radio" ng-model="roomCtrl.request.diff" value="hard">Hard</input>
+                    <div id="diff">
+                        <input type="radio" id="diff-easy" class="form-button" ng-model="roomCtrl.request.diff" value="easy" />
+                        <label for="diff-easy">Easy</label>
+                        <input type="radio" id="diff-med" class="form-button" ng-model="roomCtrl.request.diff" value="medium" />
+                        <label for="diff-med">Medium</label>
+                        <input type="radio" id="diff-hard" class="form-button" ng-model="roomCtrl.request.diff" value="hard" />
+                        <label for="diff-hard">Hard</label>
+                    </div>
+                    <br />
+                    <input type="submit" id="button-submit" ng-disabled="customRoom.$invalid" value="Play" />
                 </form>
             </div>
         </div>
