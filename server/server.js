@@ -22,8 +22,8 @@ io.on('connection', function(socket){
     });
 
     // Notify disconnect
-    socket.on('disconnect', function(){
-        console.log('USER[' + socket.conn.remoteAddress + '] ACTION: LEAVE=>ROOM[' + roomID + "]");
+    socket.on('disconnect', function(msg){
+        console.log('USER[' + socket.conn.remoteAddress + '] ACTION: LEAVE=>ROOM[' + roomID + "] REASON: " + msg);
     });
 
     // Outputs debug information sent from client
