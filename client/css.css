@@ -86,3 +86,15 @@ body {
     margin-top: 10px;
     padding: 2px;
 }
+
+#intro {
+    background-color: white;
+    padding: 10px 10px;
+    border-radius: 8px;
+    position: absolute;
+    left: 1vh;
+    bottom: 1vh;
+    width: 15vw;
+    max-height: 30vw;
+    overflow-y: auto;
+}

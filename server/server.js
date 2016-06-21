@@ -23,7 +23,7 @@ io.on('connection', function(socket){
 
     // Notify disconnect
     socket.on('disconnect', function(msg){
-        console.log('USER[' + socket.conn.remoteAddress + '] ACTION: LEAVE=>ROOM[' + roomID + "] REASON: " + msg);
+        console.log('USER[' + socket.conn.remoteAddress + '] ACTION: LEAVE=>ROOM[' + roomID + "] REASON: " + msg.toUpperCase());
     });
 
     // Outputs debug information sent from client
@@ -31,7 +31,7 @@ io.on('connection', function(socket){
         console.log("DEBUG: " + msg);
     });
 
-    // Adds the user to a lobby
+    // Adds the user to a room
     socket.on('ready', function(msg) {
         if (typeof msg.id !== 'undefined') {
             // checks if the room is available
@@ -40,21 +40,31 @@ io.on('connection', function(socket){
             } else {
                 roomID = msg.id;
                 socket.join(roomID);
+                if (typeof io.sockets.adapter.rooms[roomID].diff === 'undefined')
+                    io.sockets.adapter.rooms[roomID].diff = msg.diff;
             }
         } else {
-            while (typeof io.sockets.adapter.rooms[roomID.toString()] !== 'undefined' && io.sockets.adapter.rooms[roomID.toString()].length >= 2)
+            // Go to the next room only if the current room doesn't exist and (the room is full or if the difficulty aren't equal)
+            // I'm slow today. I had to write out the logic as a comment before I was able to understand it gg
+            while (typeof io.sockets.adapter.rooms[roomID.toString()] !== 'undefined' && (io.sockets.adapter.rooms[roomID.toString()].length >= 2 || io.sockets.adapter.rooms[roomID.toString()].diff !== msg.diff))
                 roomID++;
-            socket.join(roomID.toString());
+            roomID = roomID.toString(); // Changes our variable to a String, so we don't need to convert it every time
+            socket.join(roomID);
+            io.sockets.adapter.rooms[roomID].diff = msg.diff;
         }
 
         console.log('USER[' + socket.conn.remoteAddress + '] ACTION: JOIN=>ROOM[' + roomID + ']');
         console.log('DEBUG: username: ' + msg.username + ' id: ' + msg.id + ' diff: ' + msg.diff);
 
-        // Seed announcement
-        if (io.sockets.adapter.rooms[(typeof roomID === 'string') ? roomID : roomID.toString()].length == 2) {
-            var seed = Math.random().toString();
-            io.sockets.in(roomID.toString()).emit('seed', seed);
-            console.log("SERVER ACTION: ANNOUNCE SEED=>(" + seed + ") TO ROOM[" + roomID + "]");
+        // Data announcement
+        if (io.sockets.adapter.rooms[roomID].length == 2) {
+            var data = { };
+            data.seed = Math.random().toString();
+            data.diff = msg.diff;
+            data.room = roomID;
+            io.sockets.in(roomID.toString()).emit('startData', data);
+            console.log("SERVER ACTION: ANNOUNCE DATA TO ROOM[" + roomID + "]");
+            console.log("DEBUG: ROOM: " + JSON.stringify(io.sockets.adapter.rooms[roomID]));
         }
     });
 

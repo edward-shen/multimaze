@@ -5,8 +5,25 @@ var socket = io({'sync disconnect on unload': true });
 var randomSeed;
 
 // Should be called after everything else is loaded
-socket.on('seed', function(msg) {
-    randomSeed = msg;
+socket.on('startData', function(msg) {
+    randomSeed = msg.seed;
+
+    switch (msg.diff) {
+        case "easy":
+            ySize = 10;
+            xSize = 10;
+            break;
+        case "medium":
+            ySize = 15;
+            xSize = 20;
+            break;
+        case "hard":
+            ySize = 25;
+            xSize = 35;
+            break;
+        default:
+            console.log("ERROR: UNKNOWN DIFFICULTY \"" + msg.diff + "\"");
+    }
 
     clearMaze();
 
@@ -14,5 +31,5 @@ socket.on('seed', function(msg) {
     displayMaze();
     drawUser();
     attachKeyListener();
-    socket.emit('debug', 'CLIENT[?] ACTION: ACKNOWLEDGE=>SEED(' + msg + ')');
+    socket.emit('debug', 'CLIENT[?] ACTION: ACKNOWLEDGE=>DATA(' + msg + ')');
 });

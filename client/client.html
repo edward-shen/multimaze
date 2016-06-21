@@ -15,7 +15,7 @@
         <script src="userinput.js"></script>
         <script src="ui.js"></script>
 
-        <link rel="stylesheet" href="normalize.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
         <link rel="stylesheet" href="css.css">
     </head>
 
@@ -23,6 +23,7 @@
         <div id="overlay" ng-controller="customRoomController as roomCtrl" ng-hide="customRoom.$submitted">
             <div id="ui">
                 <h3>Multimaze</h3>
+                <p>Enter a username to begin!</p>
                 <form name="customRoom" ng-submit="customRoom.$valid && roomCtrl.join()" novalidate>
                     <input type="text" ng-model="roomCtrl.request.username" placeholder="Username" required/>
                     <input type="text" ng-model="roomCtrl.request.id" placeholder="Optional room ID" length-validation/>
@@ -39,6 +40,14 @@
                     <input type="submit" id="button-submit" ng-disabled="customRoom.$invalid" value="Play" />
                 </form>
             </div>
+            <div id="intro">
+                <h4>What is Multimaze?</h4>
+                <p>
+                    Multimaze is a small project designed to utilize <a href="https://angularjs.org/">AngularJS</a> and <a href="https://nodejs.org/en/">Node.js</a> to create a real-time competitive game to solve mazes faster than an opponent. The source code can by found on <a href="https://github.com/edward-shen/multimaze">Github</a>.</p>
+            </div>
+        </div>
+
+        <div id="chat">
         </div>
 
         <div id="maze">

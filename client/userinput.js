@@ -27,7 +27,6 @@ function attachKeyListener() {
                 }
                 break;
             case 39:
-                console.log(checkLoc({y:curPos.y, x: curPos.x + 1}));
                 if (checkLoc({y:curPos.y, x: curPos.x + 1})) {
                     moveUser({y:curPos.y, x: curPos.x + 1});
                     movementData.x1 = curPos.x + 1;

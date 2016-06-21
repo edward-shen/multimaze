@@ -1,10 +1,10 @@
 
-var xSize = 20, ySize = 20; // TODO: Define by server
+var xSize, ySize;
 
 var curPos;
 
 // Because we double the size, what happens is that a natural border is generated on the right and bottom edges, since we generate the playing field by getting two points and essentially drawing between them, and there cannot be a point outside the field. This means that if we want to create a border on all edges, we need to make the array one larger.
-var playingField = createArray(ySize * 2 + 1, xSize * 2 + 1);
+var playingField;
 
 /* Yay helper functions (from StackOverflow).
  * Creates an n-dimensional array, with n equaling the number of parameters provided
@@ -24,7 +24,6 @@ function createArray(length) {
 
 // This uses a modified Kruskal's algorithm to generate a random maze, with vertices in a unsigned rectangular system.
 function generateMaze() {
-
     var i; // Loop variable
     Math.seedrandom(randomSeed);
     var numNodes = ySize * xSize;
@@ -108,11 +107,12 @@ function displayMaze() {
     maze.append("<div id=\"playing-field\">");
 
     var field = $("#playing-field");
+    console.log(playingField.length + " " + playingField[0].length);
     for (i=0; i < playingField.length; i++) {
         field.append("<div id=\"row-" + i + "\">");
         var row = $("#row-" + i);
         for (j = 0; j < playingField[i].length; j++) {
-            if (i === playingField.length - 2 && j === playingField[0].length - 2 && i === j){
+            if (i === playingField.length - 2 && j === playingField[0].length - 2){
                 row.append("<img src=\"img/goal.png\" />");
             } else {
                 if (typeof playingField[i][j] !== 'undefined')
