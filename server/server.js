@@ -51,7 +51,7 @@ io.on('connection', function(socket){
         console.log('DEBUG: username: ' + msg.username + ' id: ' + msg.id + ' diff: ' + msg.diff);
 
         // Seed announcement
-        if (io.sockets.adapter.rooms[roomID.toString()].length == 2) {
+        if (io.sockets.adapter.rooms[(typeof roomID === 'string') ? roomID : roomID.toString()].length == 2) {
             var seed = Math.random().toString();
             io.sockets.in(roomID.toString()).emit('seed', seed);
             console.log("SERVER ACTION: ANNOUNCE SEED=>(" + seed + ") TO ROOM[" + roomID + "]");
