@@ -10,8 +10,8 @@ socket.on('chatMsg', function(msg) {
 
 socket.on('roomData', function(msg) {
     if (typeof roomID === 'undefined') {
-        $("#room-id").append(msg);
-        $("#room-username").append("<i>" + username + "</i>");
+        $("#room-id").append("<i>" + msg + "</i>");
+        $("#room-username").append("<b>User:</b> <i>" + username + "</i>");
         roomID = msg;
     }
 });
