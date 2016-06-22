@@ -16,16 +16,17 @@
         <script src="app.js"></script>
         <script src="chat.js"></script>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
-        <link rel="stylesheet" href="res/general.css">
-        <link rel="stylesheet" href="res/chat.css">
-        <link rel="stylesheet" href="res/maze.css">
-        <link rel="stylesheet" href="res/roomSelection.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css" />
+        <link rel="stylesheet" href="res/general.css" />
+        <link rel="stylesheet" href="res/chat.css" />
+        <link rel="stylesheet" href="res/maze.css" />
+        <link rel="stylesheet" href="res/roomSelection.css" />
+        <link rel="stylesheet" href="res/loading.css" />
     </head>
 
     <body ng-app="multimaze">
-        <div id="overlay" ng-controller="customRoomController as roomCtrl" ng-hide="customRoom.$submitted">
-            <div id="ui">
+        <div id="overlay" ng-controller="customRoomController as roomCtrl">
+            <div id="ui" class="hoverbox">
                 <h3>Multimaze</h3>
                 <p>Enter a username to begin!</p>
                 <form name="customRoom" ng-submit="customRoom.$valid && roomCtrl.join()" novalidate>
@@ -44,22 +45,35 @@
                     <input type="submit" id="button-submit" ng-disabled="customRoom.$invalid" value="Play" />
                 </form>
             </div>
-            <div id="intro">
+
+            <div id="intro" class="hoverbox">
                 <h4>What is Multimaze?</h4>
                 <p>
-                    Multimaze is a small project designed to utilize <a href="https://angularjs.org/">AngularJS</a> and <a href="https://nodejs.org/en/">Node.js</a> to create a real-time competitive game to solve mazes faster than an opponent. The source code can by found on <a href="https://github.com/edward-shen/multimaze">Github</a>.</p>
+                    Multimaze is a small project designed to utilize <a href="https://angularjs.org/">AngularJS</a> and <a href="https://nodejs.org/en/">Node.js</a> to create a real-time competitive game to solve mazes faster than an opponent. The source code can by found on <a href="https://github.com/edward-shen/multimaze">Github</a>.
+                </p>
+            </div>
+
+            <div class="hoverbox" id="loader">
+                <div>
+                    <div id="loaderTop"></div>
+                    <div id="loaderBottom"></div>
+                    <div id="loaderLine"></div>
+                </div>
+                <h3>Loading...</h3>
             </div>
         </div>
 
+
         <div id="chat" ng-controller="chatController as chatCtrl">
             <div id="room-info">
-                <p id="room-id"><b>Room:</b> </p>
+                <p id="room-id"><b>Room ID:</b> </p>
+                <p id="room-username"></p>
             </div>
             <div id="chatlog">
             </div>
             <form name="chatform" ng-submit="chatform.$valid && chatCtrl.sendMessage()" novalidate>
                 <span>
-                    <input type="text" ng-model="chatCtrl.msg" placeholder="Enter message here..." required/>
+                    <input type="text" ng-model="chatCtrl.msg" placeholder="Enter message here..." maxlength="200" required/>
                 </span>
                 <input type="submit" value="Send" />
             </form>

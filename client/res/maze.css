@@ -14,10 +14,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
 #playing-field {
     position:relative;
+    box-shadow: 0 0 10px #000;
 }
 
 #user, #opponent {

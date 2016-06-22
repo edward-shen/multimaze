@@ -31,5 +31,5 @@ socket.on('startData', function(msg) {
     displayMaze();
     drawUser();
     attachKeyListener();
-    socket.emit('debug', 'CLIENT[?] ACTION: ACKNOWLEDGE=>DATA(' + msg + ')');
+    socket.emit('debug', 'CLIENT[?] ACTION: ACKNOWLEDGE=>DATA(' + JSON.stringify(msg) + ')');
 });

@@ -24,9 +24,22 @@
         this.request = { diff:"medium" }; // Initializes our difficulty as medium
 
         this.join = function() {
+            $("#ui").hide();
+            $("#loader").show();
             username = this.request.username;
-            console.log(username);
-            socket.emit('ready', this.request);
+            socket.emit('ready', this.request, function(resp) {
+                console.log(resp);
+                if (resp === "full") {
+                    alert("that room is full!");
+                    $("#ui").show();
+                    $("#loader").hide();
+                } else if (resp === "ok") {
+                    $("#overlay").hide();
+                } else {
+                    console.error("Malformed acknowledgement of room!");
+                    console.error("Response: " + resp);
+                }
+            });
         };
     });
 
@@ -34,8 +47,6 @@
         this.msg = "";
 
         this.sendMessage = function() {
-            $("#chatlog").append("<p><b>" + username + ":</b><br /> " + this.msg + "</p>");
-
             var data = {user: username, msg: this.msg};
 
             socket.emit('chatMsg', data);

@@ -103,7 +103,6 @@ function displayMaze() {
     maze.append("<div id=\"playing-field\">");
 
     var field = $("#playing-field");
-    console.log(playingField.length + " " + playingField[0].length);
     for (i=0; i < playingField.length; i++) {
         field.append("<div id=\"row-" + i + "\">");
         var row = $("#row-" + i);
@@ -157,7 +156,7 @@ function moveOpponent(msg) {
 // Checks if the user reaches the target position on the maze
 function checkFinish() {
     if (curPos.x === (xSize - 1) * 2 && curPos.y === (ySize - 1) * 2) {
-        console.log("winner!");
+        socket.emit("chatMsg", {user: "Server", msg: username + " has reached the end!"});
     }
 }
 
