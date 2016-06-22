@@ -23,7 +23,6 @@ io.on('connection', function(socket){
 
     // Chat system!
     socket.on('chatMsg', function(msg){
-        console.log("server recieved chat");
         socket.broadcast.to(roomID).emit('chatMsg', msg);
     });
 
@@ -58,7 +57,7 @@ io.on('connection', function(socket){
             socket.join(roomID);
             io.sockets.adapter.rooms[roomID].diff = msg.diff;
         }
-        
+
         io.sockets.in(roomID.toString()).emit('roomData', roomID);
 
         console.log('USER[' + socket.conn.remoteAddress + '] ACTION: JOIN=>ROOM[' + roomID + ']');

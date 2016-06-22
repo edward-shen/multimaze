@@ -34,13 +34,13 @@
         this.msg = "";
 
         this.sendMessage = function() {
-            $("#chatlog").append("<p><b>" + username + ":</b> " + this.msg + "</p>");
+            $("#chatlog").append("<p><b>" + username + ":</b><br /> " + this.msg + "</p>");
 
             var data = {user: username, msg: this.msg};
 
             socket.emit('chatMsg', data);
-
             this.msg = "";
+            updateScroll();
         };
     });
 })();

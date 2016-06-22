@@ -1,30 +1,46 @@
 #chat {
     width: 30%;
     max-width:400px;
-    min-width: 10px;
+    min-width: 100px;
     min-height: 100vh;
     background-color: green;
     float: right;
-    position:relative;
+    position: relative;
+    display: inline-flex;
+    flex-flow: column;
+    flex-basis: auto;
+    justify-content: flex-start;
 }
 
 #room-info {
     background-color: red;
-    margin: auto auto;
-    padding: 5px 5px;
+    height: 40px;
+    padding: 0 0;
+    margin: 0 0;
 }
 
 #chatlog {
+    box-sizing: border-box;
     overflow-y: auto;
+    max-height: calc(100vh - 80px);
+    justify-content: flex-start;
+}
+
+#chatlog p {
+    background-color: blue;
+    word-wrap: break-word;
+    margin: 0;
+    padding: 5px 5px;
+}
+
+#chatlog p:nth-child(even) {
+    background-color:grey;
 }
 
 #chat > form {
-    margin: auto auto;
-    position:absolute;
-    bottom: 0;
+    margin-top: auto;
     display: flex;
     height: 40px;
-    width:100%;
 }
 
 #chat > form > span {
@@ -43,4 +59,5 @@
 #chat > form > input {
     min-width:20%;
     border: none;
+    outline: none;
 }
