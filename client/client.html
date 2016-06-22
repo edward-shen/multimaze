@@ -13,10 +13,14 @@
         <!-- Local scripts -->
         <script src="maze.js"></script>
         <script src="userinput.js"></script>
-        <script src="ui.js"></script>
+        <script src="app.js"></script>
+        <script src="chat.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
-        <link rel="stylesheet" href="css.css">
+        <link rel="stylesheet" href="res/general.css">
+        <link rel="stylesheet" href="res/chat.css">
+        <link rel="stylesheet" href="res/maze.css">
+        <link rel="stylesheet" href="res/roomSelection.css">
     </head>
 
     <body ng-app="multimaze">
@@ -47,7 +51,18 @@
             </div>
         </div>
 
-        <div id="chat">
+        <div id="chat" ng-controller="chatController as chatCtrl">
+            <div id="room-info">
+                <p id="room-id"><b>Room:</b> </p>
+            </div>
+            <div id="chatlog">
+            </div>
+            <form name="chatform" ng-submit="chatform.$valid && chatCtrl.sendMessage()" novalidate>
+                <span>
+                    <input type="text" ng-model="chatCtrl.msg" placeholder="Enter message here..." required/>
+                </span>
+                <input type="submit" value="Send" />
+            </form>
         </div>
 
         <div id="maze">

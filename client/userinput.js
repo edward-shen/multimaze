@@ -1,4 +1,6 @@
-// implement User move function
+// This file hosts everything related to user (as well as opponent) input
+
+// Adds key listeners for the arrow keys
 function attachKeyListener() {
     document.onkeydown = function (e) {
         var code = e.keyCode ? e.keyCode : e.which;

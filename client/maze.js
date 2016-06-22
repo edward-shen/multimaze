@@ -1,10 +1,6 @@
+// This file hosts all logic that has to do with the maze, from managing interal variables to displaying the maze
 
-var xSize, ySize;
-
-var curPos;
-
-// Because we double the size, what happens is that a natural border is generated on the right and bottom edges, since we generate the playing field by getting two points and essentially drawing between them, and there cannot be a point outside the field. This means that if we want to create a border on all edges, we need to make the array one larger.
-var playingField;
+var xSize, ySize, curPos, playingField;
 
 /* Yay helper functions (from StackOverflow).
  * Creates an n-dimensional array, with n equaling the number of parameters provided
@@ -165,8 +161,9 @@ function checkFinish() {
     }
 }
 
-// Clear the maze and empty the playing field
+// Clear the maze and recreates the playing field
 function clearMaze() {
     $("#maze").empty();
+    // Because we double the size, what happens is that a natural border is generated on the right and bottom edges, since we generate the playing field by getting two points and essentially drawing between them, and there cannot be a point outside the field. This means that if we want to create a border on all edges, we need to make the array one larger.
     playingField = createArray(ySize * 2 + 1, xSize * 2 + 1);
 }

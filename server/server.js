@@ -21,6 +21,12 @@ io.on('connection', function(socket){
         socket.broadcast.to(roomID).emit('userMovement', msg);
     });
 
+    // Chat system!
+    socket.on('chatMsg', function(msg){
+        console.log("server recieved chat");
+        socket.broadcast.to(roomID).emit('chatMsg', msg);
+    });
+
     // Notify disconnect
     socket.on('disconnect', function(msg){
         console.log('USER[' + socket.conn.remoteAddress + '] ACTION: LEAVE=>ROOM[' + roomID + "] REASON: " + msg.toUpperCase());
@@ -52,6 +58,8 @@ io.on('connection', function(socket){
             socket.join(roomID);
             io.sockets.adapter.rooms[roomID].diff = msg.diff;
         }
+        
+        io.sockets.in(roomID.toString()).emit('roomData', roomID);
 
         console.log('USER[' + socket.conn.remoteAddress + '] ACTION: JOIN=>ROOM[' + roomID + ']');
         console.log('DEBUG: username: ' + msg.username + ' id: ' + msg.id + ' diff: ' + msg.diff);
@@ -66,6 +74,8 @@ io.on('connection', function(socket){
             console.log("SERVER ACTION: ANNOUNCE DATA TO ROOM[" + roomID + "]");
             console.log("DEBUG: ROOM: " + JSON.stringify(io.sockets.adapter.rooms[roomID]));
         }
+
+
     });
 
 });

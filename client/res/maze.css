@@ -1,0 +1,27 @@
+
+#maze {
+    line-height: 0;
+    position: relative;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#playing-field {
+    position:relative;
+}
+
+#user, #opponent {
+    position:absolute;
+    top:0;
+    left:0;
+}
