@@ -121,10 +121,10 @@
     left: 8px;
     bottom: 8px;
     max-width: 15vw;
-    min-width: 200px;
+    min-width: 225px;
     max-height: 175px;
     min-height: 175px;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 .hoverbox{
