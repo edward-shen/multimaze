@@ -4,6 +4,7 @@ var http = require('http').Server(app);
 var path = require('path');
 var io = require('socket.io')(http, {'pingTimeout': 10000});
 
+// Sends over our resources
 app.use(express.static(__dirname + '/../client'));
 
 app.get('/', function(req, res){
@@ -12,7 +13,6 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-    // Find and join an unfilled room
     var roomID = 0;
 
     // Opponent movement listener
@@ -38,12 +38,15 @@ io.on('connection', function(socket){
 
     // Adds the user to a room
     socket.on('ready', function(msg, callback) {
+        // If the room is full, don't join the room
         join: {
             if (typeof msg.id !== 'undefined') {
-                // checks if the room is available
-                if (typeof io.sockets.adapter.rooms[msg.id] !== 'undefined' && io.sockets.adapter.rooms[msg.id].length == 2) {
-                    callback("full");
-                    break join;
+                if (typeof io.sockets.adapter.rooms[msg.id] !== 'undefined'){
+                    if (io.sockets.adapter.rooms[msg.id].length == 2) {
+                        callback("full");
+                        break join;
+                    }
+                    // If we need to reject joining to the room for any other reason, add it here
                 } else {
                     roomID = msg.id;
                     socket.join(roomID);
@@ -51,11 +54,9 @@ io.on('connection', function(socket){
                         io.sockets.adapter.rooms[roomID].diff = msg.diff;
                 }
             } else {
-                // Go to the next room only if the current room doesn't exist and (the room is full or if the difficulty aren't equal)
-                // I'm slow today. I had to write out the logic as a comment before I was able to understand it gg
                 while (typeof io.sockets.adapter.rooms[roomID.toString()] !== 'undefined' && (io.sockets.adapter.rooms[roomID.toString()].length >= 2 || io.sockets.adapter.rooms[roomID.toString()].diff !== msg.diff))
                     roomID++;
-                roomID = roomID.toString(); // Changes our variable to a String, so we don't need to convert it every time
+                roomID = roomID.toString(); // Changes our variable to a String, so we don't need to convert it to a string every time
                 socket.join(roomID);
                 io.sockets.adapter.rooms[roomID].diff = msg.diff;
             }
@@ -80,6 +81,9 @@ io.on('connection', function(socket){
         }
     });
 
+    socket.on('getNewMap', function(msg) {
+        io.in(roomID.toString()).emit('newMazeData', {seed: Math.random().toString(), username: msg});
+    });
 });
 
 http.listen(80, function(){

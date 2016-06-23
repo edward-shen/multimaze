@@ -17,7 +17,8 @@ function attachKeyListener() {
                     moveUser({y:curPos.y, x:curPos.x - 1});
                     movementData.x1 = curPos.x - 1;
                     movementData.y1 = curPos.y;
-                    socket.emit('userMovement', movementData);
+                    if (!checkFinish())
+                        socket.emit('userMovement', movementData);
                 }
                 break;
             case 38:
@@ -25,7 +26,8 @@ function attachKeyListener() {
                     moveUser({y:curPos.y - 1, x: curPos.x});
                     movementData.x1 = curPos.x;
                     movementData.y1 = curPos.y - 1;
-                    socket.emit('userMovement', movementData);
+                    if (!checkFinish())
+                        socket.emit('userMovement', movementData);
                 }
                 break;
             case 39:
@@ -33,7 +35,8 @@ function attachKeyListener() {
                     moveUser({y:curPos.y, x: curPos.x + 1});
                     movementData.x1 = curPos.x + 1;
                     movementData.y1 = curPos.y;
-                    socket.emit('userMovement', movementData);
+                    if (!checkFinish())
+                        socket.emit('userMovement', movementData);
                 }
                 break;
             case 40:
@@ -41,7 +44,8 @@ function attachKeyListener() {
                     moveUser({y:curPos.y + 1, x: curPos.x});
                     movementData.x1 = curPos.x;
                     movementData.y1 = curPos.y + 1;
-                    socket.emit('userMovement', movementData);
+                    if (!checkFinish())
+                        socket.emit('userMovement', movementData);
                 }
                 break;
         }

@@ -35,6 +35,7 @@
                     $("#loader").hide();
                 } else if (resp === "ok") {
                     $("#overlay").hide();
+                    $("#waiting").show();
                 } else {
                     console.error("Malformed acknowledgement of room!");
                     console.error("Response: " + resp);

@@ -25,11 +25,15 @@ socket.on('startData', function(msg) {
             console.log("ERROR: UNKNOWN DIFFICULTY \"" + msg.diff + "\"");
     }
 
-    clearMaze();
+    $("#waiting").hide();
 
-    generateMaze();
-    displayMaze();
-    drawUser();
+    generateNewMaze();
+
     attachKeyListener();
     socket.emit('debug', 'CLIENT[?] ACTION: ACKNOWLEDGE=>DATA(' + JSON.stringify(msg) + ')');
+});
+
+socket.on('newMazeData', function(msg) {
+    randomSeed = msg.seed;
+    generateNewMaze();
 });

@@ -22,6 +22,8 @@
         <link rel="stylesheet" href="res/maze.css" />
         <link rel="stylesheet" href="res/roomSelection.css" />
         <link rel="stylesheet" href="res/loading.css" />
+        <link rel="stylesheet" href="res/waiting.css" />
+        <link rel="stylesheet" href="res/main.css" />
     </head>
 
     <body ng-app="multimaze">
@@ -63,24 +65,28 @@
             </div>
         </div>
 
-
-        <div id="chat" ng-controller="chatController as chatCtrl">
-            <div id="room-info">
-                <p id="room-id"><b>Room ID:</b> </p>
-                <p id="room-username"></p>
+        <div id="main">
+            <div id="left">
+                <div id="waiting">
+                    <h3>Waiting for an opponent...</h3>
+                </div>
             </div>
-            <div id="chatlog">
+            <div id="chat" ng-controller="chatController as chatCtrl">
+                <div id="room-info">
+                    <p id="room-id"></p>
+                    <p id="room-username"></p>
+                </div>
+                <div id="chatlog">
+                </div>
+                <form name="chatform" ng-submit="chatform.$valid && chatCtrl.sendMessage()" novalidate>
+                    <span>
+                        <input type="text" ng-model="chatCtrl.msg" placeholder="Enter message here..." maxlength="200" required/>
+                    </span>
+                    <input type="submit" value="Send" />
+                </form>
             </div>
-            <form name="chatform" ng-submit="chatform.$valid && chatCtrl.sendMessage()" novalidate>
-                <span>
-                    <input type="text" ng-model="chatCtrl.msg" placeholder="Enter message here..." maxlength="200" required/>
-                </span>
-                <input type="submit" value="Send" />
-            </form>
         </div>
 
-        <div id="maze">
-        </div>
     </body>
 
 </html>

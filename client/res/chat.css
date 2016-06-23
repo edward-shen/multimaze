@@ -2,10 +2,8 @@
     background-color: #fff;
     width: 30%;
     max-width:400px;
-    min-width: 100px;
+    min-width: 125px;
     min-height: 100vh;
-    float: right;
-    position: relative;
     display: inline-flex;
     flex-flow: column;
     flex-basis: auto;
@@ -20,14 +18,12 @@
     margin: 0 0;
     box-shadow: 0 2px 5px #888;
     z-index: 3;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-    display: flex;
+	display: inherit;
     align-items: center;
     justify-content: space-between;
 }
 
-#room-info > p {
+#room-info p {
     padding: 0 10px;
 }
 
@@ -38,7 +34,7 @@
     justify-content: flex-start;
 }
 
-#chatlog > p {
+#chatlog p {
     background-color: #eee;
     word-wrap: break-word;
     margin: 0;
@@ -46,40 +42,40 @@
     box-shadow: 0 2px 5px #888;
 }
 
-#chatlog > p:first-child {
+#chatlog p:first-child {
     padding-top: 10px;
 }
 
-#chatlog > [class=sysMsg] {
+#chatlog [class=sysMsg] {
     background-color: #FFD700;
 }
 
-#chatlog > p:not([class=sysMsg]):nth-child(even) {
+#chatlog p:not([class=sysMsg]):nth-child(even) {
     background-color: #e0e0e0;
 }
 
-#chat > form {
+#chat form {
     margin-top: auto;
     display: flex;
     height: 35px;
     box-shadow: 0 -2px 5px #888;
 }
 
-#chat > form > span {
+#chat form span {
     width: 100%;
     display: block;
 }
 
-#chat > form > span > input {
+#chat form span input {
     border: none;
     outline: none;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 0 5px;
+    padding: 0 10px;
 }
 
-#chat > form > input {
+#chat form input {
     min-width:20%;
     border: none;
     outline: none;

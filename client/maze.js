@@ -99,8 +99,8 @@ function generateMaze() {
 
 // Writes the maze to the DOM, allowing us to visualize the output. Paths are black while the borders are grey
 function displayMaze() {
-    var maze = $("#maze");
-    maze.append("<div id=\"playing-field\">");
+    var container = $("#left");
+    container.append("<div id=\"playing-field\">");
 
     var field = $("#playing-field");
     for (i=0; i < playingField.length; i++) {
@@ -120,14 +120,7 @@ function displayMaze() {
         field.append("</div>");
     }
 
-    maze.append("</div>");
-
-
-    // Draws the user and opponent
-    field.append("<img src=\"img/opponent.png\" id=\"opponent\" />");
-    $("#opponent").css({position:"absolute", top:"16px", left:"16px"});
-    field.append("<img src=\"img/user.png\" id=\"user\" />");
-
+    container.append("</div>");
 }
 
 // Checks if the user can move to the specified position
@@ -140,7 +133,10 @@ function moveUser(location) {
     curPos.x = location.x;
     curPos.y = location.y;
     drawUser();
-    checkFinish();
+    if (checkFinish()){
+        socket.emit("chatMsg", {user: "Server", msg: username + " has reached the end!"});
+        socket.emit("getNewMap", username);
+    }
 }
 
 // Draws the user at curPos
@@ -155,14 +151,30 @@ function moveOpponent(msg) {
 
 // Checks if the user reaches the target position on the maze
 function checkFinish() {
-    if (curPos.x === (xSize - 1) * 2 && curPos.y === (ySize - 1) * 2) {
-        socket.emit("chatMsg", {user: "Server", msg: username + " has reached the end!"});
-    }
+    return (curPos.x === (xSize - 1) * 2 && curPos.y === (ySize - 1) * 2)
 }
 
-// Clear the maze and recreates the playing field
+function generateNewMaze() {
+    clearMaze();
+    generateMaze();
+    displayMaze();
+    addPlayers();
+    resetPlayers();
+}
+
+// Clear the maze and recreates the internal playing field
 function clearMaze() {
-    $("#maze").empty();
+    $("#playing-field").empty();
     // Because we double the size, what happens is that a natural border is generated on the right and bottom edges, since we generate the playing field by getting two points and essentially drawing between them, and there cannot be a point outside the field. This means that if we want to create a border on all edges, we need to make the array one larger.
     playingField = createArray(ySize * 2 + 1, xSize * 2 + 1);
+}
+
+function addPlayers(){
+    $("#playing-field").append("<img src=\"img/opponent.png\" id=\"opponent\" />");
+    $("#playing-field").append("<img src=\"img/user.png\" id=\"user\" />");
+}
+
+function resetPlayers() {
+    $("#opponent").css({position:"absolute", top:"16px", left:"16px"});
+    $("#user").css({position:"absolute", top:"16px", left:"16px"});
 }
