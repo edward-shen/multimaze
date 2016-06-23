@@ -30,11 +30,11 @@
         <div id="overlay" ng-controller="customRoomController as roomCtrl">
             <div id="ui" class="hoverbox">
                 <h3>Multimaze</h3>
-                <p>Enter a username to begin!</p>
                 <form name="customRoom" ng-submit="customRoom.$valid && roomCtrl.join()" novalidate>
-                    <input type="text" ng-model="roomCtrl.request.username" placeholder="Username" required/>
-                    <input type="text" ng-model="roomCtrl.request.id" placeholder="Optional room ID" length-validation/>
-                    <br />
+                    <div id="user-data">
+                        <input type="text" ng-model="roomCtrl.request.username" placeholder="Username" input-restricted/>
+                        <input type="text" ng-model="roomCtrl.request.id" placeholder="Optional room ID" room-validation input-restricted/>
+                    </div>
                     <div id="diff">
                         <input type="radio" id="diff-easy" class="form-button" ng-model="roomCtrl.request.diff" value="easy" />
                         <label for="diff-easy">Easy</label>
@@ -43,7 +43,6 @@
                         <input type="radio" id="diff-hard" class="form-button" ng-model="roomCtrl.request.diff" value="hard" />
                         <label for="diff-hard">Hard</label>
                     </div>
-                    <br />
                     <input type="submit" id="button-submit" ng-disabled="customRoom.$invalid" value="Play" />
                 </form>
             </div>
@@ -75,6 +74,8 @@
                 <div id="room-info">
                     <p id="room-id"></p>
                     <p id="room-username"></p>
+                    <p id="room-score"></p>
+                    <p id="room-diff"></p>
                 </div>
                 <div id="chatlog">
                 </div>

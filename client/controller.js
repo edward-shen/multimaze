@@ -6,8 +6,20 @@ var randomSeed, username, roomID;
 
 // Should be called after everything else is loaded
 socket.on('startData', function(msg) {
-    randomSeed = msg.seed;
+    $("#waiting").hide();
+    randomSeed = msg;
+    generateNewMaze();
+    attachKeyListener();
+    socket.emit('debug', 'CLIENT[?] ACTION: ACKNOWLEDGE=>DATA(' + JSON.stringify(msg) + ')');
+});
 
+socket.on('newMazeData', function(msg) {
+    incrementAndUpdateScore(msg.username);
+    randomSeed = msg;
+    generateNewMaze();
+});
+
+socket.on('roomData', function(msg) {
     switch (msg.diff) {
         case "easy":
             ySize = 10;
@@ -25,15 +37,5 @@ socket.on('startData', function(msg) {
             console.log("ERROR: UNKNOWN DIFFICULTY \"" + msg.diff + "\"");
     }
 
-    $("#waiting").hide();
-
-    generateNewMaze();
-
-    attachKeyListener();
-    socket.emit('debug', 'CLIENT[?] ACTION: ACKNOWLEDGE=>DATA(' + JSON.stringify(msg) + ')');
-});
-
-socket.on('newMazeData', function(msg) {
-    randomSeed = msg.seed;
-    generateNewMaze();
+    addRoomInfo(msg.id);
 });

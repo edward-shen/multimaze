@@ -40,20 +40,20 @@ io.on('connection', function(socket){
     socket.on('ready', function(msg, callback) {
         // If the room is full, don't join the room
         join: {
-            if (typeof msg.id !== 'undefined') {
-                if (typeof io.sockets.adapter.rooms[msg.id] !== 'undefined'){
-                    if (io.sockets.adapter.rooms[msg.id].length == 2) {
+            if (typeof msg.id !== 'undefined') { // If an ID was specified
+                console.log("msg id is not undefined!");
+                if (typeof io.sockets.adapter.rooms[msg.id] !== 'undefined' &&
+                    (io.sockets.adapter.rooms[msg.id].length == 2)) {
                         callback("full");
                         break join;
-                    }
-                    // If we need to reject joining to the room for any other reason, add it here
-                } else {
+                } else { // If the room doesn't exist
+                    console.log(typeof msg.id);
                     roomID = msg.id;
                     socket.join(roomID);
                     if (typeof io.sockets.adapter.rooms[roomID].diff === 'undefined')
                         io.sockets.adapter.rooms[roomID].diff = msg.diff;
                 }
-            } else {
+            } else { // If an ID wasn't specified
                 while (typeof io.sockets.adapter.rooms[roomID.toString()] !== 'undefined' && (io.sockets.adapter.rooms[roomID.toString()].length >= 2 || io.sockets.adapter.rooms[roomID.toString()].diff !== msg.diff))
                     roomID++;
                 roomID = roomID.toString(); // Changes our variable to a String, so we don't need to convert it to a string every time
@@ -63,18 +63,13 @@ io.on('connection', function(socket){
 
             callback("ok");
 
-            io.in(roomID.toString()).emit('roomData', roomID);
+            io.in(roomID.toString()).emit('roomData', {id: roomID, diff: msg.diff} );
 
             console.log('USER[' + socket.conn.remoteAddress + '] ACTION: JOIN=>ROOM[' + roomID + ']');
-            console.log('DEBUG: username: ' + msg.username + ' id: ' + msg.id + ' diff: ' + msg.diff);
 
             // Data announcement
             if (io.sockets.adapter.rooms[roomID].length == 2) {
-                var data = { };
-                data.seed = Math.random().toString();
-                data.diff = msg.diff;
-                data.room = roomID;
-                io.in(roomID.toString()).emit('startData', data);
+                io.in(roomID.toString()).emit('startData', Math.random().toString());
                 console.log("SERVER ACTION: ANNOUNCE DATA TO ROOM[" + roomID + "]");
                 console.log("DEBUG: ROOM: " + JSON.stringify(io.sockets.adapter.rooms[roomID]));
             }

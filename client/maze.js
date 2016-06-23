@@ -1,6 +1,6 @@
 // This file hosts all logic that has to do with the maze, from managing interal variables to displaying the maze
 
-var xSize, ySize, curPos, playingField;
+var xSize, ySize, curPos, playingField, difficulty;
 
 /* Yay helper functions (from StackOverflow).
  * Creates an n-dimensional array, with n equaling the number of parameters provided
@@ -141,12 +141,20 @@ function moveUser(location) {
 
 // Draws the user at curPos
 function drawUser() {
-    $("#user").css({position:"absolute", top:(curPos.y + 1) * 16, left:(curPos.x + 1) * 16});
+    $("#user").css({
+        position:"absolute",
+        top:(curPos.y + 1) * 16,
+        left:(curPos.x + 1) * 16
+    });
 }
 
 // Updates the opponent's location
 function moveOpponent(msg) {
-    $("#opponent").css({position:"absolute", top:(msg.y + 1) * 16 , left:(msg.x + 1) * 16});
+    $("#opponent").css({
+        position:"absolute",
+        top:(msg.y + 1) * 16,
+        left:(msg.x + 1) * 16
+    });
 }
 
 // Checks if the user reaches the target position on the maze

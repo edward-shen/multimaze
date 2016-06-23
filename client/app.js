@@ -3,7 +3,7 @@
 
 
     // If this directive is added to an input, said input only becomes valid if the length is equal to zero or at least three characters
-    app.directive('lengthValidation', function() {
+    app.directive('roomValidation', function() {
         return {
             require: 'ngModel',
             link: function(scope, element, attr, mCtrl) {
@@ -20,15 +20,43 @@
         };
     });
 
+    app.directive('inputRestricted', function() {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function(scope, element, attr, ngModelCtrl) {
+                var pattern = /[^0-9A-Za-z_-]*/g;
+
+                function fromUser(text) {
+                    if (!text)
+                        return text;
+
+                    var transformedInput = text.replace(pattern, '');
+                    if (transformedInput !== text) {
+                        ngModelCtrl.$setViewValue(transformedInput);
+                        ngModelCtrl.$render();
+                    }
+                    return transformedInput;
+                }
+
+                ngModelCtrl.$parsers.push(fromUser);
+            }
+        };
+    });
+
     app.controller("customRoomController", function() {
         this.request = { diff:"medium" }; // Initializes our difficulty as medium
 
         this.join = function() {
+            if (this.request.username === '' || typeof this.request.username === 'undefined') {
+                this.request.username = "Anonymous";
+            }
+
             $("#ui").hide();
             $("#loader").show();
+            
             username = this.request.username;
             socket.emit('ready', this.request, function(resp) {
-                console.log(resp);
                 if (resp === "full") {
                     alert("that room is full!");
                     $("#ui").show();
