@@ -41,13 +41,11 @@ io.on('connection', function(socket){
         // If the room is full, don't join the room
         join: {
             if (typeof msg.id !== 'undefined') { // If an ID was specified
-                console.log("msg id is not undefined!");
                 if (typeof io.sockets.adapter.rooms[msg.id] !== 'undefined' &&
                     (io.sockets.adapter.rooms[msg.id].length == 2)) {
                         callback("full");
                         break join;
                 } else { // If the room doesn't exist
-                    console.log(typeof msg.id);
                     roomID = msg.id;
                     socket.join(roomID);
                     if (typeof io.sockets.adapter.rooms[roomID].diff === 'undefined')
