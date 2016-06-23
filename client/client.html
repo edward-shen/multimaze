@@ -32,8 +32,8 @@
                 <h3>Multimaze</h3>
                 <form name="customRoom" ng-submit="customRoom.$valid && roomCtrl.join()" novalidate>
                     <div id="user-data">
-                        <input type="text" ng-model="roomCtrl.request.username" placeholder="Username" input-restricted/>
-                        <input type="text" ng-model="roomCtrl.request.id" placeholder="Optional room ID" room-validation input-restricted/>
+                        <input type="text" ng-model="roomCtrl.request.username" placeholder="Username" maxlength="10" input-restricted/>
+                        <input type="text" ng-model="roomCtrl.request.id" placeholder="Optional room ID" maxlength="10" input-restricted/>
                     </div>
                     <div id="diff">
                         <input type="radio" id="diff-easy" class="form-button" ng-model="roomCtrl.request.diff" value="easy" />
