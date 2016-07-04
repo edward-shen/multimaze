@@ -57,7 +57,6 @@ socket.on('userMovement', function(msg){
     moveOpponent(msg);
 });
 
-/*
 // Prevents Inspection Menu
 $(document).keydown(function(event){
     if(event.keyCode==123){
@@ -72,4 +71,3 @@ else if(event.ctrlKey && event.shiftKey && event.keyCode==73){
 $(document).on("contextmenu",function(e){
    e.preventDefault();
 });
-*/
