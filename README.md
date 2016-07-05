@@ -22,9 +22,5 @@ Then, simply run Node.js on the `server.js` file by running the following comman
 
 This project has a MIT license. Please read `LICENSE` for more information. Additional thanks go to David Bau for providing a seedable RNG.
 
-## FAQ
-
-Please help contribute to the wiki. Additionally, please create an issue on Github if the problem appears to be a bug.
-
 ## Authors and contact info
-Message me at eddie22099 at gmail. 
+Message me at eddie22099 at gmail dot com.
