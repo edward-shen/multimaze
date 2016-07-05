@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Multimaze by edward-shen</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Multimaze</h1>
+        <p>A Lightweight Multiplayer Maze</p>
+
+        <p class="view"><a href="https://github.com/edward-shen/multimaze">View the Project on GitHub <small>edward-shen/multimaze</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/edward-shen/multimaze/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/edward-shen/multimaze/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/edward-shen/multimaze">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
+
+<p>Multimaze is an application to run a basic multiplayer two-player maze solving competitive game with basic chat functionality. It utilizes Node.js and some Node.js packages. At most, it has features such as auto-room allocation, score keeping, and realtime opponent movement. The client uses <a href="https://angularjs.org/">AngularJS</a> alongside <a href="https://jquery.com/">JQuery</a>.</p>
+
+<h2>
+<a id="more-details" class="anchor" href="#more-details" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More details</h2>
+
+<p>Multimaze uses <a href="http://socket.io/">socket.io</a> to create rooms with the max size of two, so that only 1v1 games exist. Users receive everything in the <code>client</code> folder for easy modification. The server has two main purposes: it acts as a relay for client-client data, and acts as an authority for sending seeds which the client generates the maze. The maze itself is generated via <a href="https://en.wikipedia.org/wiki/Kruskal%27s_algorithm">Kruskal's algorithm</a>, which was chosen because <a href="https://en.wikipedia.org/wiki/Prim%27s_algorithm">Prim's algorithm</a> was no fun. This project was created to demonstrate my ability.</p>
+
+<h2>
+<a id="how-to-run" class="anchor" href="#how-to-run" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to run</h2>
+
+<p><em>If you already know how to run and install a Node.js server, you can skip this section. Simply run <code>node server.js</code> located within the <code>server</code> folder</em></p>
+
+<p>First, install NodeJS from <a href="https://nodejs.org/en/download/">their official webpage</a>.</p>
+
+<p>Multimaze has two dependencies, <a href="expressjs.com">Express</a> and <a href="http://socket.io/">socket.io</a>. If you do not have these Node.js pacakages installed, you can install them by running <code>npm install</code> while your working directory is within the <code>server</code> folder.</p>
+
+<pre><code>cd /path/to/directory/server
+npm install
+</code></pre>
+
+<p>Then, simply run Node.js on the <code>server.js</code> file by running the following command, again while in the <code>server</code> folder.</p>
+
+<pre><code>node server
+</code></pre>
+
+<h2>
+<a id="copyright-and-thanks" class="anchor" href="#copyright-and-thanks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Copyright and thanks</h2>
+
+<p>This project has a MIT license. Please read <code>LICENSE</code> for more information. Additional thanks go to David Bau for providing a seedable RNG.</p>
+
+<h2>
+<a id="authors-and-contact-info" class="anchor" href="#authors-and-contact-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and contact info</h2>
+
+<p>Message me at eddie22099 at gmail dot com.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/edward-shen">edward-shen</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
